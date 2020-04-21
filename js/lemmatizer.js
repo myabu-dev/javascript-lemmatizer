@@ -1,3 +1,12 @@
+import AdjExc from '../dict/adj.exc.js'
+import AdvExc from '../dict/adv.exc.js'
+import IndexAdj from '../dict/index.adj.js'
+import IndexAdv from '../dict/index.adv.js'
+import IndexNoun from '../dict/index.noun.js'
+import IndexVerb from '../dict/index.verb.js'
+import NounExc from '../dict/noun.exc.js'
+import VerbExc from '../dict/verb.exc.js'
+
 /*
 * JavaScript Lemmatizer
 * https://github.com/myabu-dev/javascript-lemmatizer
@@ -14,22 +23,22 @@ if (typeof String.endsWith !== "function") {
 
 // Lemmatizer constructor
 var Lemmatizer = function() {
-  this.wn_files = {
+  this.wn_data = {
     noun: [
-      '../dict/index.noun.json',
-      '../dict/noun.exc.json'
+      IndexNoun,
+      NounExc
     ],
     verb: [
-      '../dict/index.verb.json',
-      '../dict/verb.exc.json'
+      IndexVerb,
+      VerbExc
     ],
     adj:  [
-      '../dict/index.adj.json',
-      '../dict/adj.exc.json'
+      IndexAdj,
+      AdjExc
     ],
     adv:  [
-      '../dict/index.adv.json',
-      '../dict/adv.exc.json'
+      IndexAdv,
+      AdvExc
     ]
   };
 
@@ -76,13 +85,8 @@ var Lemmatizer = function() {
     this.exceptions[key] = {};
   }
 
-  // store dictionary data to localStorage from wn_files
-  for (var pos in this.wn_files) {
-    this.load_wordnet_files(pos, this.wn_files[pos][0], this.wn_files[pos][1]);
-  }
-
   // fetch dictionary data from localStorage, then set up wordlists and exceptions
-  for (var pos in this.wn_files) {
+  for (var pos in this.wn_data) {
     this.setup_dic_data(pos);
   }
 };
@@ -90,8 +94,6 @@ var Lemmatizer = function() {
 // Lemmatizer properties
 Lemmatizer.prototype = {
   form: '',
-  idx: '_idx',
-  exc: '_exc',
   lems: [], // -> [ ["lemma1", "verb"], ["lemma2", "noun"]... ]
 
   // **************************************************
@@ -151,36 +153,16 @@ Lemmatizer.prototype = {
     return this.lems.length === 0;
   },
 
-  // set up dictionary data
-  load_wordnet_files: function(pos, list, exc) {
-    var key_idx = pos + this.idx;
-    this.open_file(key_idx, list);
-    var key_exc = pos + this.exc; 
-    this.open_file(key_exc, exc);
-  },
-
   setup_dic_data: function(pos) {
     var self = this;
-    var key_idx = pos + this.idx;
-    _.each( this.fetch_data(key_idx), function(w) {
+    _.each( this.wn_data[pos][0], function(w) {
       self.wordlists[pos][w] = w;
     });
-    var key_exc = pos + this.exc; 
-    _.each( this.fetch_data(key_exc), function(item) {
+    _.each( this.wn_data[pos][1], function(item) {
       var w = item[0];
       var s = item[1];
       self.exceptions[pos][w] = s;
     });
-  },
-
-  open_file: function(key, file) {
-    if (!localStorage.getItem(key)) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", file, false);
-      xhr.send();
-      var data = xhr.responseText;
-      this.store_data(key, data);
-    }
   },
 
   store_data: function(key, data) {
@@ -425,3 +407,7 @@ Lemmatizer.prototype = {
     return result;
   }
 };
+
+
+var lemmatizer = new Lemmatizer();
+console.log(lemmatizer.only_lemmas('guns', 'noun'))
