@@ -1,8 +1,8 @@
 /*
-* JavaScript Lemmatizer v0.0.2
-* https://github.com/takafumir/javascript-lemmatizer
+* JavaScript Lemmatizer
+* https://github.com/myabu-dev/javascript-lemmatizer
 * MIT License
-* by Takafumi Yamano
+* by Takafumi Yamano, myabu
 */
 
 // extend String and define String#endsWith
