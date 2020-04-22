@@ -11,6 +11,18 @@ Depends on Underscore.js.
 
 - [Underscore.js](http://underscorejs.org/)
 
+## Install
+
+1. Download JavaScript Lemmatizer and put into your project
+
+2. Import  JavaScript Lemmatizer in your javascript file
+
+```javascript
+import Lemmatizer from 'js/lemmatizer.js'
+```
+
+
+
 ## Usage
 
 You can use `Lemmatizer#lemmas` or `Lemmatizer#only_lemmas` methods like the follwoing sample in your JavaScript code.
