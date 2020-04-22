@@ -1,3 +1,5 @@
+import * as _ from '../underscore/underscore.js'
+
 import AdjExc from '../dict/adj.exc.js'
 import AdvExc from '../dict/adv.exc.js'
 import IndexAdj from '../dict/index.adj.js'
