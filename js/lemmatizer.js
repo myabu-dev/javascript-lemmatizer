@@ -410,6 +410,4 @@ Lemmatizer.prototype = {
   }
 };
 
-
-var lemmatizer = new Lemmatizer();
-console.log(lemmatizer.only_lemmas('guns', 'noun'))
+export default Lemmatizer;
