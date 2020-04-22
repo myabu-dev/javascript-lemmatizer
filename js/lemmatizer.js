@@ -1,3 +1,10 @@
+/*
+* JavaScript Lemmatizer
+* https://github.com/myabu-dev/javascript-lemmatizer
+* MIT License
+* by Takafumi Yamano, myabu
+*/
+
 import * as _ from '../underscore/underscore.js'
 
 import AdjExc from '../dict/adj.exc.js'
@@ -8,13 +15,6 @@ import IndexNoun from '../dict/index.noun.js'
 import IndexVerb from '../dict/index.verb.js'
 import NounExc from '../dict/noun.exc.js'
 import VerbExc from '../dict/verb.exc.js'
-
-/*
-* JavaScript Lemmatizer
-* https://github.com/myabu-dev/javascript-lemmatizer
-* MIT License
-* by Takafumi Yamano, myabu
-*/
 
 // extend String and define String#endsWith
 if (typeof String.endsWith !== "function") {
