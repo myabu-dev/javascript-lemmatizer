@@ -120,9 +120,8 @@ Lemmatizer.prototype = {
 
       // when lemma not found and the form is included in wordlists.
       if ( this.is_lemma_empty() ) {
-        _.chain(parts)
-         .select( function(pos) { return self.wordlists[pos][form]; } )
-         .each( function(pos) { self.lems.push([ form, pos ]); } );
+        const temp = _.select( parts, function(pos) { return self.wordlists[pos][form]; } );
+        _.each( temp, function(pos) { self.lems.push([ form, pos ]); } );
       }
       // when lemma not found and the form is not included in wordlists.
       if ( this.is_lemma_empty() ) {
